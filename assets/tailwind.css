@@ -1,0 +1,37 @@
+/* ==========================================================================
+   فایل ورودی Tailwind CSS  (نسخه ۴)
+   --------------------------------------------------------------------------
+   این فایل در زمان توسعه کامپایل می‌شود و خروجی آن به صورت یک فایل CSS آماده
+   در مسیر core/static/core/css/tailwind.css قرار می‌گیرد؛ بنابراین سایت بدون
+   نیاز به اینترنت و CDN استایل می‌شود.
+
+   دستور کامپایل (از ریشه پروژه):
+
+       .\.venv\Scripts\tailwindcss.exe -i assets\tailwind.css -o core\static\core\css\tailwind.css --minify
+
+   اگر کلاس‌های Tailwind جدیدی به قالب‌ها اضافه کردید، همین دستور را دوباره اجرا کنید.
+   ========================================================================== */
+
+@import "tailwindcss" source(none);
+
+/* مسیرهایی که کلاس‌های Tailwind در آن‌ها جست‌وجو می‌شوند */
+@source "../core/templates";
+@source "../core/static";
+
+/* کلاس‌هایی که در قالب به صورت پویا ساخته می‌شوند (رنگ وضعیت پرونده‌ها) */
+@source inline("{border-r,border,bg,text}-{amber,green,blue,gray}-{100,500,700,800}");
+
+@theme {
+  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, Tahoma, sans-serif;
+
+  --color-brand-50: #fffbeb;
+  --color-brand-100: #fef3c7;
+  --color-brand-200: #fde68a;
+  --color-brand-300: #fcd34d;
+  --color-brand-400: #fbbf24;
+  --color-brand-500: #f59e0b;
+  --color-brand-600: #d97706;
+  --color-brand-700: #b45309;
+  --color-brand-800: #92400e;
+  --color-brand-900: #78350f;
+}

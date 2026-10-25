@@ -4,7 +4,18 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import AdvocacySubmission, Podcast, SiteSettings
+from .models import (
+    AdvocacyCase,
+    AdvocacySubmission,
+    Magazine,
+    NewsItem,
+    Podcast,
+    SiteSettings,
+    StatementPrinciple,
+    TeamMember,
+    UniversityFeature,
+    Video,
+)
 
 
 class PublicSiteTests(TestCase):
@@ -86,3 +97,29 @@ class AdminAccessTests(TestCase):
 
         self.assertContains(response, 'سوپر یوزر')
         self.assertNotIn('_auth_user_id', self.client.session)
+
+    def test_every_admin_page_opens(self):
+        user = get_user_model().objects.create_superuser(
+            username='admin', email='admin@example.com', password='StrongPass!123',
+        )
+        self.client.force_login(user)
+
+        models = (
+            Podcast, Video, Magazine, NewsItem, AdvocacyCase,
+            AdvocacySubmission, TeamMember, StatementPrinciple,
+            UniversityFeature, SiteSettings,
+        )
+
+        for model in models:
+            meta = model._meta
+            changelist = reverse(f'admin:{meta.app_label}_{meta.model_name}_changelist')
+            with self.subTest(page=meta.model_name, view='changelist'):
+                self.assertEqual(self.client.get(changelist).status_code, 200)
+
+            if model is AdvocacySubmission:
+                # مطالبات دریافتی فقط قابل مشاهده و بررسی هستند
+                continue
+
+            add_page = reverse(f'admin:{meta.app_label}_{meta.model_name}_add')
+            with self.subTest(page=meta.model_name, view='add'):
+                self.assertEqual(self.client.get(add_page).status_code, 200)

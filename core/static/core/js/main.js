@@ -177,12 +177,18 @@
   });
 
   /* اگر آدرسی با # باز شد، همان بخش نمایش داده شود. */
-  document.addEventListener('DOMContentLoaded', function () {
+  function showInitialSection() {
     var pageId = window.location.hash.replace('#', '');
     if (pageId && document.getElementById(pageId)) {
       navigateTo(pageId, { scroll: false });
     } else {
       navigateTo('home', { scroll: false });
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', showInitialSection);
+  } else {
+    showInitialSection();
+  }
 })();

@@ -4,7 +4,7 @@
    ========================================================================== */
 
 body {
-  font-family: 'Vazirmatn', sans-serif;
+  font-family: 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
   background: radial-gradient(circle at 50% 15%, #fef3c7 0%, #fffbeb 50%, #fef9c3 100%);
   min-height: 100vh;
 }
