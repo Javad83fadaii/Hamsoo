@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ site.site_name }} | {{ site.tagline }}{% endblock %}</title>
+  <meta name="description" content="{{ site.tagline }}">
+
+  <!-- Tailwind CSS (CDN) و تنظیمات قالب -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="{% static 'core/js/tailwind-config.js' %}"></script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- قلم فارسی وزیرمتن -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+
+  <!-- استایل اختصاصی سایت -->
+  <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+</head>
+<body class="text-neutral-800 flex flex-col justify-between">
+
+  <!-- نوار ناوبری بالا -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-amber-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="{% url 'core:index' %}" class="flex items-center gap-3" data-nav="home">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-white shadow-md font-bold text-xl">
+          هـ
+        </div>
+        <div>
+          <span class="font-extrabold text-amber-700 text-lg">{{ site.site_name }}</span>
+          <span class="hidden sm:inline-block text-xs text-amber-600 mr-2 bg-amber-100 px-2 py-0.5 rounded-full">{{ site.hashtag }}</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <button type="button" data-nav="home" class="nav-link">صفحه اصلی</button>
+        <button type="button" data-nav="works" class="nav-link">آثار تولیدی</button>
+        <button type="button" data-nav="advocacy" class="nav-link">مطالبه‌گری</button>
+        <button type="button" data-nav="news" class="nav-link">اخبار</button>
+        <button type="button" data-nav="university" class="nav-link">همسو در دانشگاه</button>
+        <button type="button" data-nav="statement" class="nav-link">بیانیه گام اول</button>
+        <button type="button" data-nav="team" class="nav-link">اعضای همسو</button>
+      </nav>
+
+      <button type="button" data-nav="works" class="bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl shadow transition flex items-center gap-2">
+        <i class="fas fa-play"></i>
+        <span>مشاهده آثار</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- بدنه اصلی و صفحات -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    {% if messages %}
+      <div class="mb-6 space-y-2">
+        {% for message in messages %}
+          <div class="rounded-xl border px-4 py-3 text-sm font-semibold flex items-start gap-2
+            {% if message.tags == 'success' %}bg-green-50 border-green-200 text-green-800{% else %}bg-red-50 border-red-200 text-red-800{% endif %}">
+            <i class="fas {% if message.tags == 'success' %}fa-circle-check{% else %}fa-circle-exclamation{% endif %} mt-0.5"></i>
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+  </main>
+
+  <!-- پاورقی -->
+  <footer class="bg-amber-900 text-amber-100 mt-12 border-t-4 border-amber-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-center md:text-right">
+        <span class="text-lg font-black text-amber-300">{{ site.site_name }}</span>
+        <p class="text-xs text-amber-200/80 mt-1">{{ site.footer_text }}</p>
+      </div>
+
+      <div class="flex items-center gap-4 text-lg">
+        {% if site.link_ita %}<a href="{{ site.link_ita }}" target="_blank" rel="noopener" class="hover:text-amber-400 transition" title="ایتا"><i class="fas fa-paper-plane"></i></a>{% endif %}
+        {% if site.link_bale %}<a href="{{ site.link_bale }}" target="_blank" rel="noopener" class="hover:text-amber-400 transition" title="بله"><i class="fas fa-comments"></i></a>{% endif %}
+        {% if site.link_aparat %}<a href="{{ site.link_aparat }}" target="_blank" rel="noopener" class="hover:text-amber-400 transition" title="آپارات"><i class="fas fa-play-circle"></i></a>{% endif %}
+        {% if site.link_instagram %}<a href="{{ site.link_instagram }}" target="_blank" rel="noopener" class="hover:text-amber-400 transition" title="اینستاگرام"><i class="fab fa-instagram"></i></a>{% endif %}
+        {% if site.contact_email %}<a href="mailto:{{ site.contact_email }}" class="hover:text-amber-400 transition" title="ایمیل"><i class="fas fa-envelope"></i></a>{% endif %}
+        {% if site.contact_phone %}<a href="tel:{{ site.contact_phone }}" class="hover:text-amber-400 transition" title="تماس"><i class="fas fa-phone"></i></a>{% endif %}
+      </div>
+
+      <div class="text-xs text-amber-300/70 text-center md:text-left flex flex-col gap-2">
+        <span>{{ site.copyright_text }}</span>
+        <a href="{% url 'admin:index' %}" class="inline-flex items-center justify-center gap-1 text-amber-200/60 hover:text-amber-300 transition">
+          <i class="fas fa-lock text-[10px]"></i>
+          <span>پنل مدیریت</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- اسکریپت‌های سایت -->
+  <script src="{% static 'core/js/main.js' %}"></script>
+</body>
+</html>

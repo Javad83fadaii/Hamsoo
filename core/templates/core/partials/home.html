@@ -1,0 +1,188 @@
+<!-- ==================== صفحه اول (صفحه اصلی) ==================== -->
+<section id="home" class="page-section active">
+
+  <!-- بخش بالایی وسط: لوگو و آیکون مرکزی -->
+  <div class="text-center my-6 flex flex-col items-center">
+    <div class="relative mb-3">
+      <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 flex items-center justify-center p-1 shadow-lg ring-8 ring-amber-100">
+        <div class="w-full h-full rounded-full bg-amber-50 flex items-center justify-center flex-col shadow-inner">
+          <i class="fas fa-flag text-amber-600 text-3xl mb-1 animate-bounce"></i>
+          <span class="text-[10px] font-bold text-amber-800">ایران سرافراز</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-sm sm:text-base font-semibold text-neutral-600 tracking-wide mb-1">
+      {{ site.tagline }}
+    </p>
+
+    <h1 class="text-6xl sm:text-7xl font-black hamsoo-logo-text mb-2 tracking-tight">
+      همسو
+    </h1>
+
+    <div class="flex items-center gap-3 my-2 text-amber-600 bg-white/70 px-4 py-1.5 rounded-full border border-amber-200 shadow-sm text-sm">
+      <i class="fas fa-video" title="ویدئو"></i>
+      <i class="fas fa-microphone" title="پادکست"></i>
+      <i class="fas fa-comment-dots" title="گفتگو"></i>
+      <i class="fas fa-book-open" title="نشریه"></i>
+    </div>
+
+    <div class="inline-block bg-amber-400/30 text-amber-800 font-extrabold px-4 py-1 rounded-full text-sm border-b-2 border-amber-500 mt-1">
+      {{ site.hashtag }}
+    </div>
+  </div>
+
+  <!-- سطر بعدی: تقسیم به ۳ قسمت -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-10">
+
+    <!-- سمت راست: ۳ گزینه -->
+    <div class="lg:col-span-4 space-y-4">
+
+      <!-- کارت ۱: آثار تولیدی -->
+      <div data-nav="works" class="glass-card p-5 rounded-2xl cursor-pointer transition transform hover:-translate-x-1 flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-400 text-amber-900 flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="flex-grow">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg text-amber-900">آثار تولیدی</h3>
+            <i class="fas fa-arrow-left text-xs text-amber-600"></i>
+          </div>
+          <p class="text-xs text-neutral-600 mt-1">پادکست‌ها، مستندهای ویدئویی و نشریات تخصصی همسو</p>
+          <div class="flex gap-2 mt-3">
+            <span class="text-[11px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded">پادکست</span>
+            <span class="text-[11px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded">ویدئو</span>
+            <span class="text-[11px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded">نشریه</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- کارت ۲: مطالبه‌گری -->
+      <div data-nav="advocacy" class="glass-card p-5 rounded-2xl cursor-pointer transition transform hover:-translate-x-1 flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-500 text-white flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="flex-grow">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg text-amber-900">مطالبه‌گری</h3>
+            <i class="fas fa-arrow-left text-xs text-amber-600"></i>
+          </div>
+          <p class="text-xs text-neutral-600 mt-1">پیگیری دغدغه‌های صنفی، دانشجویی و مردمی تا حصول نتیجه عادلانه</p>
+          <div class="mt-2 text-xs font-semibold text-amber-700 flex items-center gap-1">
+            <span>ثبت مطالبه جدید</span>
+            <i class="fas fa-chevron-left text-[10px]"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- کارت ۳: اخبار -->
+      <div data-nav="news" class="glass-card p-5 rounded-2xl cursor-pointer transition transform hover:-translate-x-1 flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-300 text-amber-900 flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+          <i class="fas fa-newspaper"></i>
+        </div>
+        <div class="flex-grow">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg text-amber-900">اخبار و رویدادها</h3>
+            <i class="fas fa-arrow-left text-xs text-amber-600"></i>
+          </div>
+          <p class="text-xs text-neutral-600 mt-1">آخرین اطلاعیه‌ها، گزارش‌های تحلیلی و رویدادهای گروه</p>
+          <div class="mt-2 text-[11px] text-neutral-500">
+            بروزرسانی روزانه رویدادها
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ستون وسط: معرفی گروه -->
+    <div class="lg:col-span-4 flex flex-col">
+      <div class="glass-card p-6 rounded-3xl h-full flex flex-col justify-between border-2 border-amber-300 shadow-xl bg-gradient-to-b from-white via-amber-50/50 to-white">
+        <div>
+          <div class="w-12 h-1 bg-amber-500 rounded-full mb-4"></div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">درباره تشکل و گروه</span>
+          <h2 class="text-2xl font-black text-amber-900 mt-1 mb-3">{{ site.about_title }}</h2>
+          <p class="text-sm text-neutral-700 leading-relaxed text-justify">
+            {{ site.about_text|linebreaksbr }}
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 my-6">
+            <div class="bg-amber-100/70 p-3 rounded-xl text-center">
+              <span class="block text-xl font-bold text-amber-800">{{ site.stat_one_value }}</span>
+              <span class="text-xs text-neutral-600">{{ site.stat_one_label }}</span>
+            </div>
+            <div class="bg-amber-100/70 p-3 rounded-xl text-center">
+              <span class="block text-xl font-bold text-amber-800">{{ site.stat_two_value }}</span>
+              <span class="text-xs text-neutral-600">{{ site.stat_two_label }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-amber-200 flex items-center justify-between">
+          <span class="text-xs text-neutral-500">متعهد به مسئولیت اجتماعی</span>
+          <button type="button" data-nav="statement" class="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1">
+            <span>مطالعه مرام‌نامه</span>
+            <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- سمت چپ: ۳ گزینه -->
+    <div class="lg:col-span-4 space-y-4">
+
+      <!-- کارت ۴: همسو در بستر دانشگاه -->
+      <div data-nav="university" class="glass-card p-5 rounded-2xl cursor-pointer transition transform hover:translate-x-1 flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-400 text-amber-900 flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+          <i class="fas fa-university"></i>
+        </div>
+        <div class="flex-grow">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg text-amber-900">همسو در بستر دانشگاه</h3>
+            <i class="fas fa-arrow-left text-xs text-amber-600"></i>
+          </div>
+          <p class="text-xs text-neutral-600 mt-1">فعالیت‌های تشکیلاتی، جلسات هم‌اندیشی و هم‌افزایی با قشر نخبه و اساتید</p>
+          <div class="mt-2 text-[11px] text-amber-700 font-medium">
+            ارتباط مستقیم با دفاتر دانشگاهی
+          </div>
+        </div>
+      </div>
+
+      <!-- کارت ۵: بیانیه گام اول -->
+      <div data-nav="statement" class="glass-card p-5 rounded-2xl cursor-pointer transition transform hover:translate-x-1 flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-500 text-white flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+          <i class="fas fa-scroll"></i>
+        </div>
+        <div class="flex-grow">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg text-amber-900">بیانیه گام اول</h3>
+            <i class="fas fa-arrow-left text-xs text-amber-600"></i>
+          </div>
+          <p class="text-xs text-neutral-600 mt-1">مبانی فکری، منشور اخلاقی، اهداف آغازین و نقشه راه رسانه همسو</p>
+          <div class="mt-2 text-[11px] text-neutral-500">
+            سند راهبردی تشکل
+          </div>
+        </div>
+      </div>
+
+      <!-- کارت ۶: آشنایی با اعضای همسو -->
+      <div data-nav="team" class="glass-card p-5 rounded-2xl cursor-pointer transition transform hover:translate-x-1 flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-300 text-amber-900 flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="flex-grow">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg text-amber-900">آشنایی با اعضای همسو</h3>
+            <i class="fas fa-arrow-left text-xs text-amber-600"></i>
+          </div>
+          <p class="text-xs text-neutral-600 mt-1">معرفی کادر اداری، شورای سردبیری، گویندگان، تدوینگران و اعضای فعال</p>
+          <div class="mt-2 text-xs font-semibold text-amber-700 flex items-center gap-1">
+            <span>پیوستن به همسو</span>
+            <i class="fas fa-chevron-left text-[10px]"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
