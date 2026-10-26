@@ -116,15 +116,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # پوشه‌ی جمع‌آوری استاتیک‌ها برای اجرا در حالت production
 # (فایل‌های css و js داخل هر اپ در پوشه static همان اپ قرار می‌گیرند)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # فایل‌های آپلودی (صدا، ویدئو، تصویر و PDF)
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

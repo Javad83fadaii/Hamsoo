@@ -1,5 +1,6 @@
-"""تست‌های پایه سایت و پنل مدیریت."""
+"""تست‌های پایه سایت، فایل‌های آپلودی و پنل مدیریت."""
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -60,6 +61,16 @@ class PublicSiteTests(TestCase):
         })
 
         self.assertEqual(AdvocacySubmission.objects.count(), 0)
+
+
+class ProjectConfigurationTests(TestCase):
+    def test_static_and_media_urls_are_absolute(self):
+        self.assertEqual(settings.STATIC_URL, '/static/')
+        self.assertEqual(settings.MEDIA_URL, '/media/')
+
+    def test_media_directory_is_available(self):
+        self.assertTrue(settings.MEDIA_ROOT.exists())
+        self.assertTrue(settings.MEDIA_ROOT.is_dir())
 
 
 class AdminAccessTests(TestCase):
