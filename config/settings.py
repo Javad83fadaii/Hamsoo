@@ -10,22 +10,45 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+def env_flag(name, default=False):
+    """خواندن مقادیر بولی از متغیرهای محیطی (true/1/yes/on)."""
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in ('1', 'true', 'yes', 'on')
+
+
+def env_list(name, default=''):
+    """خواندن فهرست جداشده با کاما از متغیرهای محیطی."""
+    return [item.strip() for item in os.environ.get(name, default).split(',') if item.strip()]
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(4tuys=am4b-1*38ahfu7l#bdh3yq7)+6sgnj!skf53wmo@@4b'
+# در استقرار واقعی مقدار DJANGO_SECRET_KEY را در پنل کولیفای تنظیم کنید.
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-(4tuys=am4b-1*38ahfu7l#bdh3yq7)+6sgnj!skf53wmo@@4b',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# پیش‌فرض برای استقرار، غیرفعال است؛ برای اجرای محلی: DJANGO_DEBUG=True
+DEBUG = env_flag('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+# دامنه/آی‌پی‌هایی که سایت با آن‌ها سرو می‌شود (با کاما جدا شود)
+ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]')
+
+# دامنه‌های مورد اعتماد برای درخواست‌های POST (شامل http/https و پورت)
+CSRF_TRUSTED_ORIGINS = env_list('DJANGO_CSRF_TRUSTED_ORIGINS')
 
 
 # Application definition
@@ -43,6 +66,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # سرو کردن فایل‌های استاتیک در حالت production (بدون نیاز به Nginx)
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,10 +99,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# پوشه‌ی داده‌های ماندگار (دیتابیس و فایل‌های آپلودی).
+# در استقرار روی کولیفای یک volume ماندگار روی همین مسیر مانت می‌شود.
+DATA_DIR = Path(os.environ.get('DJANGO_DATA_DIR', BASE_DIR / 'data'))
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.environ.get('DJANGO_DB_PATH', str(DATA_DIR / 'db.sqlite3')),
+        'OPTIONS': {'timeout': 20},
     }
 }
 
@@ -124,17 +155,62 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # فایل‌های آپلودی (صدا، ویدئو، تصویر و PDF)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = Path(os.environ.get('DJANGO_MEDIA_ROOT', DATA_DIR / 'media'))
 MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# فایل‌های استاتیک با فشرده‌سازی و هش محتوا توسط WhiteNoise سرو می‌شوند
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+
+WHITENOISE_MAX_AGE = 31536000 if not DEBUG else 0
+
+# --- تنظیمات امنیتی پشت پروکسی معکوس (Coolify / Traefik) --------------------
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = env_flag('DJANGO_USE_X_FORWARDED_HOST', False)
+
+# اگر سایت با HTTPS سرو می‌شود، این گزینه را true کنید.
+SECURE_COOKIES = env_flag('DJANGO_SECURE_COOKIES', False)
+SESSION_COOKIE_SECURE = SECURE_COOKIES
+CSRF_COOKIE_SECURE = SECURE_COOKIES
+
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = 'same-origin'
+
+# پورت داخلی کانتینر (گونی‌کورن روی همین پورت گوش می‌دهد)
+APP_PORT = int(os.environ.get('PORT', '8000'))
+
+# نام دامنه‌ی سایت برای نمایش در لاگ‌ها و پنل (اختیاری)
+SITE_URL = os.environ.get('DJANGO_SITE_URL', '')
 
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
+# پیش‌فرض SMTP است؛ برای تست محلی می‌توانید مقدار
+# DJANGO_EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend را تنظیم کنید.
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'BACKEND': os.environ.get(
+            'DJANGO_EMAIL_BACKEND',
+            'django.core.mail.backends.smtp.EmailBackend',
+        ),
     },
 }
+
+if os.environ.get('EMAIL_HOST'):
+    MAILERS['default'].update({
+        'HOST': os.environ.get('EMAIL_HOST', ''),
+        'PORT': int(os.environ.get('EMAIL_PORT', '587')),
+        'USERNAME': os.environ.get('EMAIL_HOST_USER', ''),
+        'PASSWORD': os.environ.get('EMAIL_HOST_PASSWORD', ''),
+        'USE_TLS': env_flag('EMAIL_USE_TLS', True),
+    })

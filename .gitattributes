@@ -1,0 +1,20 @@
+# یکسان‌سازی پایان خط‌ها برای اسکریپت‌های اجرایی در لینوکس
+*.sh text eol=lf
+Dockerfile text eol=lf
+entrypoint.sh text eol=lf
+
+# فایل‌های متنی پروژه
+*.py text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+
+# فایل‌های باینری
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.mp3 binary
+*.mp4 binary
