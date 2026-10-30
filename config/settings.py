@@ -100,8 +100,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 # پوشه‌ی داده‌های ماندگار (دیتابیس و فایل‌های آپلودی).
-# در استقرار روی کولیفای یک volume ماندگار روی همین مسیر مانت می‌شود.
-DATA_DIR = Path(os.environ.get('DJANGO_DATA_DIR', BASE_DIR / 'data'))
+# در استقرار روی کولیفای یک volume ماندگار روی مسیر /app/data مانت می‌شود.
+# در اجرای محلی، همان مسیر پروژه استفاده می‌شود تا رفتار قبلی حفظ شود.
+DATA_DIR = Path(os.environ.get('DJANGO_DATA_DIR', BASE_DIR))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 DATABASES = {
