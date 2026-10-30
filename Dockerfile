@@ -16,6 +16,10 @@ FROM ${PYTHON_IMAGE}
 # در کولیفای می‌توانید در بخش Build Arguments مقدار PIP_INDEX_URL را تغییر دهید.
 ARG PIP_INDEX_URL=https://mirror-pypi.runflare.com/simple
 
+# آینه‌ی مخزن Debian؛ فقط در صورت مسدود بودن deb.debian.org لازم است
+# (مثلاً --build-arg DEBIAN_MIRROR=mirror.arvancloud.ir)
+ARG DEBIAN_MIRROR=
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -26,6 +30,14 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PORT=8000
 
 WORKDIR /app
+
+# curl برای healthcheck کولیفای لازم است؛ تصویر slim آن را ندارد.
+RUN if [ -n "$DEBIAN_MIRROR" ]; then \
+        sed -i "s|deb.debian.org|${DEBIAN_MIRROR}|g" /etc/apt/sources.list.d/debian.sources; \
+    fi \
+    && apt-get -o Acquire::http::Timeout=25 -o Acquire::Retries=2 update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
 
 # نصب وابستگی‌ها قبل از کپی کد، برای استفاده‌ی بهتر از کش لایه‌ها
 COPY requirements.txt ./
