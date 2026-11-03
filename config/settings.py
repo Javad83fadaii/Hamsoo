@@ -161,13 +161,21 @@ MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# فایل‌های استاتیک با فشرده‌سازی و هش محتوا توسط WhiteNoise سرو می‌شوند
+# فایل‌های استاتیک در production با فشرده‌سازی و هش محتوا توسط WhiteNoise سرو می‌شوند
+# (نیازمند اجرای collectstatic)؛ در حالت development از storage ساده استفاده می‌شود
+# تا اجرای محلی بدون collectstatic هم بدون خطا باشد.
+STATICFILES_BACKEND = (
+    'django.contrib.staticfiles.storage.StaticFilesStorage'
+    if DEBUG
+    else 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+)
+
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': STATICFILES_BACKEND,
     },
 }
 
