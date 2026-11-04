@@ -47,6 +47,25 @@ class HamsooAdminSite(admin.AdminSite):
     def has_permission(self, request):
         return request.user.is_active and request.user.is_superuser
 
+    def index(self, request, extra_context=None):
+        """داشبورد؛ با افزودن آمار سریع محتوا به کانتکست پیش‌فرض جنگو."""
+        extra_context = extra_context or {}
+        extra_context['hamsoo_stats'] = [
+            {'icon': 'fa-microphone', 'label': 'پادکست منتشرشده',
+             'value': Podcast.objects.published().count()},
+            {'icon': 'fa-film', 'label': 'ویدئوی منتشرشده',
+             'value': Video.objects.published().count()},
+            {'icon': 'fa-book-open', 'label': 'نشریه منتشرشده',
+             'value': Magazine.objects.published().count()},
+            {'icon': 'fa-newspaper', 'label': 'خبر منتشرشده',
+             'value': NewsItem.objects.published().count()},
+            {'icon': 'fa-gavel', 'label': 'پرونده مطالبه‌گری',
+             'value': AdvocacyCase.objects.published().count()},
+            {'icon': 'fa-inbox', 'label': 'مطلبه بدون بررسی',
+             'value': AdvocacySubmission.objects.filter(is_reviewed=False).count()},
+        ]
+        return super().index(request, extra_context)
+
 
 admin_site = HamsooAdminSite(name='admin')
 

@@ -1,0 +1,88 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% if form.errors %}{% translate "Error:" %} {% endif %}{{ block.super }}{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block branding %}{% endblock %}
+
+{% block content %}
+<div id="content-main" class="login-shell">
+  <div class="login-card">
+
+    <div class="login-card-head">
+      <span class="login-badge" aria-hidden="true">هـ</span>
+      <h1 class="login-title">پنل مدیریت رسانه همسو</h1>
+      <p class="login-sub">برای مدیریت محتوا وارد حساب سوپر یوزر خود شوید.</p>
+    </div>
+
+    {% if form.errors and not form.non_field_errors %}
+      <p class="errornote">
+        {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+      </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+        <p class="errornote">{{ error }}</p>
+      {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <p class="errornote">
+        {% blocktranslate trimmed %}
+          You are authenticated as {{ username }}, but are not authorized to
+          access this page. Would you like to login to a different account?
+        {% endblocktranslate %}
+      </p>
+    {% endif %}
+
+    <form action="{{ app_path }}" method="post" id="login-form" class="login-form">
+      {% csrf_token %}
+      <div class="login-field">
+        <label for="{{ form.username.id_for_label }}"><i class="fas fa-user" aria-hidden="true"></i> {{ form.username.label }}</label>
+        {{ form.username.errors }}
+        {{ form.username }}
+      </div>
+      <div class="login-field">
+        <label for="{{ form.password.id_for_label }}"><i class="fas fa-lock" aria-hidden="true"></i> {{ form.password.label }}</label>
+        {{ form.password.errors }}
+        {{ form.password }}
+        <input type="hidden" name="next" value="{{ next }}">
+      </div>
+      {% url 'admin_password_reset' as password_reset_url %}
+      {% if password_reset_url %}
+        <div class="password-reset-link">
+          <a href="{{ password_reset_url }}">{% translate 'Forgotten your login credentials?' %}</a>
+        </div>
+      {% endif %}
+      <div class="login-submit">
+        <button type="submit" class="button default">
+          <i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i>
+          {% translate 'Log in' %}
+        </button>
+      </div>
+    </form>
+
+    <div class="login-foot">
+      <a class="login-back" href="{% url 'core:index' %}">
+        <i class="fas fa-house" aria-hidden="true"></i>
+        بازگشت به سایت
+      </a>
+      {% include "admin/color_theme_toggle.html" %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}

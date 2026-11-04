@@ -1,0 +1,123 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static admin_filters log %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main" class="dash">
+
+  <!-- خوش‌آمدگویی -->
+  <section class="dash-hero">
+    <div>
+      <h1>{% translate 'Welcome,' %} {% firstof user.get_short_name user.get_username %}!</h1>
+      <p class="dash-date">
+        <i class="fas fa-calendar-day" aria-hidden="true"></i>
+        {% now "j F Y" %} — مدیریت محتوای رسانه همسو
+      </p>
+    </div>
+    <a class="dash-hero-cta" href="{% url 'core:index' %}">
+      <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      مشاهده سایت
+    </a>
+  </section>
+
+  <!-- آمار سریع -->
+  {% if hamsoo_stats %}
+    <section class="dash-stats">
+      {% for stat in hamsoo_stats %}
+        <div class="dash-stat">
+          <span class="dash-stat-icon" aria-hidden="true"><i class="fas {{ stat.icon }}"></i></span>
+          <div>
+            <span class="dash-stat-value">{{ stat.value }}</span>
+            <span class="dash-stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <!-- بخش‌های مدیریت محتوا -->
+  <div class="dash-grid">
+    {% for app in app_list %}
+      <section class="app-card app-{{ app.app_label }}">
+        <a class="app-card-head" href="{{ app.app_url }}">
+          <span class="app-card-icon" aria-hidden="true">
+            <i class="fas {% if app.app_label == 'core' %}fa-layer-group{% elif app.app_label == 'auth' %}fa-user-shield{% else %}fa-cubes{% endif %}"></i>
+          </span>
+          <h2>{{ app.name }}</h2>
+          <span class="app-card-count">{{ app.models|length }}</span>
+        </a>
+        <ul class="dash-model-list">
+          {% for model in app.models %}
+            {% with model_name=model.object_name|lower %}
+              <li class="model-row model-{{ model_name }}">
+                <span class="model-name">
+                  <i class="fas {% if model_name == 'podcast' %}fa-microphone{% elif model_name == 'video' %}fa-film{% elif model_name == 'magazine' %}fa-book-open{% elif model_name == 'newsitem' %}fa-newspaper{% elif model_name == 'advocacycase' %}fa-gavel{% elif model_name == 'advocationsubmission' %}fa-inbox{% elif model_name == 'teammember' %}fa-users{% elif model_name == 'statementprinciple' %}fa-scroll{% elif model_name == 'universityfeature' %}fa-graduation-cap{% elif model_name == 'sitesettings' %}fa-sliders{% elif model_name == 'group' %}fa-user-tag{% elif model_name == 'user' %}fa-user{% elif model_name == 'logentry' %}fa-clock-rotate-left{% else %}fa-database{% endif %}" aria-hidden="true"></i>
+                  {% if model.admin_url %}
+                    <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                  {% else %}
+                    {{ model.name }}
+                  {% endif %}
+                </span>
+                <span class="model-actions">
+                  {% if model.add_url %}
+                    <a class="icon-btn add" href="{{ model.add_url }}" title="{% translate 'Add' %}"><i class="fas fa-plus" aria-hidden="true"></i></a>
+                  {% endif %}
+                  {% if model.admin_url %}
+                    {% if model.view_only %}
+                      <a class="icon-btn view" href="{{ model.admin_url }}" title="{% translate 'View' %}"><i class="fas fa-eye" aria-hidden="true"></i></a>
+                    {% else %}
+                      <a class="icon-btn change" href="{{ model.admin_url }}" title="{% translate 'Change' %}"><i class="fas fa-pen" aria-hidden="true"></i></a>
+                    {% endif %}
+                  {% endif %}
+                </span>
+              </li>
+            {% endwith %}
+          {% endfor %}
+        </ul>
+      </section>
+    {% empty %}
+      <p class="dash-empty">{% translate 'You don’t have permission to view or edit anything.' %}</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+  <div class="module" id="recent-actions-module">
+    <h2><i class="fas fa-clock-rotate-left" aria-hidden="true"></i> {% translate 'Recent actions' %}</h2>
+    <h3>{% translate 'My actions' %}</h3>
+    {% get_admin_log 10 as admin_log for_user user %}
+    {% if not admin_log %}
+      <p class="dash-empty">{% translate 'None available' %}</p>
+    {% else %}
+      <ul class="actionlist">
+        {% for entry in admin_log %}
+          <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+            <span class="visually-hidden">{% if entry.is_addition %}{% translate 'Added:' %}{% elif entry.is_change %}{% translate 'Changed:' %}{% elif entry.is_deletion %}{% translate 'Deleted:' %}{% endif %}</span>
+            {% if entry.is_deletion or not entry.get_admin_url %}
+              {{ entry.object_repr|to_object_display_value }}
+            {% else %}
+              <a href="{{ entry.get_admin_url }}">{{ entry.object_repr|to_object_display_value }}</a>
+            {% endif %}
+            <br>
+            {% if entry.content_type %}
+              <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+            {% else %}
+              <span class="mini quiet">{% translate 'Unknown content' %}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

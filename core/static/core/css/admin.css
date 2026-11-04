@@ -1,0 +1,1218 @@
+/* ==========================================================================
+   پنل مدیریت رسانه همسو — پوسته‌ی اختصاصی روی استایل پیش‌فرض جنگو
+   پالت: کهربایی (Amber) هماهنگ با سایت اصلی | قلم: وزیرمتن | چیدمان: RTL
+   ========================================================================== */
+
+/* --- پالت رنگ (حالت روشن) ------------------------------------------------- */
+:root,
+html[data-theme="light"] {
+    --primary: #d97706;
+    --secondary: #92400e;
+    --accent: #fbbf24;
+    --primary-fg: #fff8ef;
+
+    --page-bg: #f6f1e7;
+    --card-bg: #fffdf9;
+
+    --body-bg: #fffdf9;
+    --body-fg: #3f3a33;
+    --body-quiet-color: #7d7365;
+    --body-medium-color: #57503f;
+    --body-loud-color: #2b241a;
+
+    --header-bg: #78350f;
+    --header-color: #fde9c8;
+    --header-branding-color: #fbbf24;
+    --header-link-color: #fff7ed;
+
+    --breadcrumbs-fg: #8b7f6d;
+    --breadcrumbs-link-fg: #92400e;
+    --breadcrumbs-bg: #fffdf9;
+
+    --link-fg: #b45309;
+    --link-hover-color: #78350f;
+    --link-selected-fg: #92400e;
+
+    --hairline-color: #ece2d2;
+    --border-color: #dccfb8;
+
+    --message-debug-bg: #f5f5f4;
+    --message-info-bg: #eff6ff;
+    --message-success-bg: #ecfdf5;
+    --message-warning-bg: #fffbeb;
+    --message-error-bg: #fef2f2;
+
+    --darkened-bg: #f8f3ea;
+    --selected-bg: #f3ead9;
+    --selected-row: #fdf3d7;
+
+    --button-fg: #fffaf0;
+    --button-bg: #d97706;
+    --button-hover-bg: #b45309;
+    --default-button-bg: #92400e;
+    --default-button-hover-bg: #78350f;
+    --close-button-bg: #79716a;
+    --close-button-hover-bg: #57534e;
+    --delete-button-bg: #dc2626;
+    --delete-button-hover-bg: #b91c1c;
+
+    --object-tools-fg: #fff7ed;
+    --object-tools-bg: #a8a29b;
+    --object-tools-hover-bg: #78716c;
+
+    --font-family-primary:
+        "Vazirmatn", "Segoe UI", system-ui, Roboto, "Helvetica Neue",
+        Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+    --hamsoo-shadow: 0 2px 10px rgba(96, 61, 15, 0.08);
+    --hamsoo-shadow-lg: 0 12px 32px rgba(96, 61, 15, 0.16);
+    --hamsoo-radius: 14px;
+}
+
+/* --- پالت رنگ (حالت تیره) ------------------------------------------------- */
+html[data-theme="dark"] {
+    --primary: #d97706;
+    --secondary: #4a2508;
+    --accent: #f59e0b;
+    --primary-fg: #1c1917;
+
+    --page-bg: #17130f;
+    --card-bg: #292524;
+
+    --body-bg: #292524;
+    --body-fg: #e7e5e4;
+    --body-quiet-color: #a8a29b;
+    --body-medium-color: #d6d3d1;
+    --body-loud-color: #fafaf9;
+
+    --header-bg: #27180b;
+    --header-color: #fde4bc;
+    --header-branding-color: #fbbf24;
+    --header-link-color: #fef3c7;
+
+    --breadcrumbs-fg: #a8a29b;
+    --breadcrumbs-link-fg: #fbbf24;
+    --breadcrumbs-bg: #292524;
+
+    --link-fg: #fbbf24;
+    --link-hover-color: #fde68a;
+    --link-selected-fg: #f59e0b;
+
+    --hairline-color: #44403c;
+    --border-color: #57534e;
+
+    --message-info-bg: #172554;
+    --message-success-bg: #052e16;
+    --message-warning-bg: #451a03;
+    --message-error-bg: #450a0a;
+
+    --darkened-bg: #332c26;
+    --selected-bg: #44403c;
+    --selected-row: #451a03;
+
+    --button-fg: #1c1917;
+    --button-bg: #d97706;
+    --button-hover-bg: #b45309;
+    --default-button-bg: #b45309;
+    --default-button-hover-bg: #d97706;
+    --close-button-bg: #57534e;
+    --close-button-hover-bg: #78716c;
+
+    --hamsoo-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    --hamsoo-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* --- پایه ----------------------------------------------------------------- */
+body.hamsoo-admin {
+    background: var(--page-bg);
+    font-size: 0.88rem;
+    line-height: 1.75;
+}
+
+body.hamsoo-admin #container {
+    background: transparent;
+}
+
+a:link, a:visited {
+    transition: color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* --- هدر (نوار بالا) ------------------------------------------------------ */
+body.hamsoo-admin #header {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 1.4rem;
+    background: linear-gradient(90deg, #78350f 0%, #92400e 55%, #b45309 100%);
+    box-shadow: var(--hamsoo-shadow);
+}
+
+body.hamsoo-admin #branding {
+    float: none;
+    display: flex;
+    align-items: center;
+}
+
+body.hamsoo-admin #site-name {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.hamsoo-brand {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--header-link-color) !important;
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+.hamsoo-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    color: #451a03;
+    font-size: 1.25rem;
+    font-weight: 900;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.hamsoo-brand-text {
+    white-space: nowrap;
+}
+
+/* ابزارهای کاربر */
+body.hamsoo-admin #user-tools {
+    float: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    text-align: start;
+    font-weight: 500;
+    color: var(--header-color);
+}
+
+body.hamsoo-admin #user-tools a,
+body.hamsoo-admin #logout-form button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.85rem;
+    border: 1px solid rgba(253, 230, 138, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--header-link-color) !important;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.6;
+    cursor: pointer;
+}
+
+body.hamsoo-admin #user-tools a:hover,
+body.hamsoo-admin #logout-form button:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(253, 230, 138, 0.6);
+    text-decoration: none;
+}
+
+body.hamsoo-admin #user-tools i {
+    font-size: 0.72rem;
+    opacity: 0.9;
+}
+
+body.hamsoo-admin #logout-form {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+}
+
+body.hamsoo-admin #logout-form button {
+    font-family: inherit;
+}
+
+/* کلید تم روشن/تیره */
+body.hamsoo-admin .theme-toggle {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(253, 230, 138, 0.35);
+}
+
+/* --- مسیریابی (Breadcrumbs) ----------------------------------------------- */
+body.hamsoo-admin .breadcrumbs {
+    background: var(--breadcrumbs-bg);
+    border-bottom: 1px solid var(--hairline-color);
+    padding: 0.65rem 1.4rem;
+    font-size: 0.78rem;
+    box-shadow: 0 1px 3px rgba(96, 61, 15, 0.04);
+}
+
+body.hamsoo-admin .breadcrumbs a {
+    color: var(--breadcrumbs-link-fg);
+    font-weight: 600;
+}
+
+/* --- منوی کناری (Nav Sidebar) --------------------------------------------- */
+body.hamsoo-admin #nav-sidebar {
+    background: var(--card-bg);
+    border-inline-end: 1px solid var(--hairline-color);
+    box-shadow: none;
+    padding-top: 1rem;
+}
+
+body.hamsoo-admin #nav-sidebar caption {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.72rem;
+    color: var(--body-quiet-color);
+    text-transform: none;
+}
+
+body.hamsoo-admin #nav-sidebar caption a.section {
+    color: var(--secondary);
+    font-weight: 800;
+    border-bottom: 0;
+}
+
+body.hamsoo-admin #nav-sidebar table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+    margin: 0 0 0.8rem;
+}
+
+body.hamsoo-admin #nav-sidebar tr {
+    display: table-row;
+}
+
+body.hamsoo-admin #nav-sidebar tr th {
+    display: table-cell;
+    width: auto;
+    padding: 0;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+body.hamsoo-admin #nav-sidebar tr th a {
+    display: block;
+    padding: 0.45rem 0.85rem;
+    border-radius: 10px;
+    color: var(--body-medium-color);
+}
+
+body.hamsoo-admin #nav-sidebar tr th a:hover {
+    background: var(--selected-row);
+    color: var(--link-hover-color);
+}
+
+body.hamsoo-admin #nav-sidebar .current-model th a {
+    background: linear-gradient(90deg, rgba(217, 119, 6, 0.14), rgba(217, 119, 6, 0.05));
+    color: var(--link-selected-fg);
+    font-weight: 700;
+}
+
+/* دکمه «افزودن» آیکونی در منوی کناری */
+body.hamsoo-admin #nav-sidebar td {
+    width: 1%;
+    padding: 0 0 0 0.6rem;
+}
+
+body.hamsoo-admin #nav-sidebar td a.addlink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 0; /* متن «افزودن» برای خواننده‌های صفحه‌خوان می‌ماند */
+    border-radius: 8px;
+    background-image: none !important;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+}
+
+body.hamsoo-admin #nav-sidebar td a.addlink::before {
+    content: "\f067";
+    font-family: "Font Awesome 6 Free", "Vazirmatn", sans-serif;
+    font-weight: 900;
+    font-size: 0.7rem;
+    color: #451a03;
+}
+
+body.hamsoo-admin #nav-filter {
+    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    padding: 0.5rem 0.85rem;
+    background: var(--body-bg);
+}
+
+body.hamsoo-admin #nav-filter:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+    outline: none;
+}
+
+/* --- تیترها و ابزارها ------------------------------------------------------ */
+body.hamsoo-admin #content .titles h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--body-loud-color);
+    margin-bottom: 0.4rem;
+}
+
+body.hamsoo-admin .object-tools a:link,
+body.hamsoo-admin .object-tools a:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    padding: 0.35rem 1.05rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--object-tools-bg);
+    box-shadow: var(--hamsoo-shadow);
+}
+
+body.hamsoo-admin .object-tools a:hover {
+    background: var(--object-tools-hover-bg);
+}
+
+body.hamsoo-admin .object-tools a.addlink {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fffaf0;
+}
+
+body.hamsoo-admin .object-tools a.addlink:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+/* --- کارت ماژول‌ها --------------------------------------------------------- */
+body.hamsoo-admin .module {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: var(--hamsoo-radius);
+    box-shadow: var(--hamsoo-shadow);
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+}
+
+body.hamsoo-admin .module > h2,
+body.hamsoo-admin .module caption {
+    background: var(--darkened-bg);
+    color: var(--body-loud-color);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--hairline-color);
+}
+
+body.hamsoo-admin .module table {
+    border-radius: 0;
+}
+
+/* --- جدول نتایج (Change List) ---------------------------------------------- */
+body.hamsoo-admin #results {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: var(--hamsoo-radius);
+    box-shadow: var(--hamsoo-shadow);
+    overflow-x: auto;
+}
+
+body.hamsoo-admin #result_list thead th {
+    background: var(--darkened-bg);
+    border-color: var(--hairline-color);
+    padding: 0.65rem 0.9rem;
+    white-space: nowrap;
+}
+
+body.hamsoo-admin #result_list thead th a {
+    color: var(--body-medium-color);
+    font-weight: 700;
+    font-size: 0.78rem;
+}
+
+body.hamsoo-admin #result_list tbody th,
+body.hamsoo-admin #result_list tbody td {
+    padding: 0.7rem 0.9rem;
+    border-color: var(--hairline-color);
+    color: var(--body-fg);
+}
+
+body.hamsoo-admin #result_list tbody tr:hover th,
+body.hamsoo-admin #result_list tbody tr:hover td {
+    background: var(--selected-row);
+}
+
+body.hamsoo-admin .hamsoo-row-link {
+    cursor: pointer;
+}
+
+body.hamsoo-admin .paginator {
+    background: transparent;
+    border: 0;
+    padding: 1rem 0.2rem;
+    color: var(--body-quiet-color);
+    font-size: 0.8rem;
+}
+
+body.hamsoo-admin .paginator a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    margin-inline: 2px;
+    border-radius: 10px;
+    border: 1px solid var(--hairline-color);
+    background: var(--card-bg);
+    color: var(--link-fg);
+    font-weight: 700;
+}
+
+body.hamsoo-admin .paginator a.showall {
+    width: auto;
+    padding-inline: 0.8rem;
+}
+
+body.hamsoo-admin .paginator a.this-page {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-color: transparent;
+    color: #fffaf0;
+}
+
+/* --- فرم‌ها و ورودی‌ها ------------------------------------------------------ */
+body.hamsoo-admin input[type="text"],
+body.hamsoo-admin input[type="email"],
+body.hamsoo-admin input[type="url"],
+body.hamsoo-admin input[type="number"],
+body.hamsoo-admin input[type="password"],
+body.hamsoo-admin input[type="search"],
+body.hamsoo-admin input[type="tel"],
+body.hamsoo-admin textarea,
+body.hamsoo-admin select,
+body.hamsoo-admin .vTextField {
+    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    background: var(--body-bg);
+    color: var(--body-fg);
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+body.hamsoo-admin input[type="text"]:focus,
+body.hamsoo-admin input[type="email"]:focus,
+body.hamsoo-admin input[type="url"]:focus,
+body.hamsoo-admin input[type="number"]:focus,
+body.hamsoo-admin input[type="password"]:focus,
+body.hamsoo-admin input[type="search"]:focus,
+body.hamsoo-admin input[type="tel"]:focus,
+body.hamsoo-admin textarea:focus,
+body.hamsoo-admin select:focus,
+body.hamsoo-admin .vTextField:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+    outline: none;
+}
+
+body.hamsoo-admin fieldset.module .form-row label,
+body.hamsoo-admin fieldset.module .form-row > div label {
+    color: var(--body-quiet-color);
+    font-weight: 700;
+    font-size: 0.78rem;
+}
+
+body.hamsoo-admin .readonly {
+    color: var(--body-quiet-color);
+    background: var(--darkened-bg);
+    border-radius: 8px;
+    padding: 0.3rem 0.6rem;
+}
+
+body.hamsoo-admin .help {
+    color: var(--body-quiet-color);
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+}
+
+/* خطاهای فیلدها */
+body.hamsoo-admin ul.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.3rem 0 0;
+    color: var(--error-fg);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+body.hamsoo-admin p.errornote {
+    border-radius: 10px;
+    border: 1px solid rgba(220, 38, 38, 0.35);
+    background: var(--message-error-bg);
+    color: var(--error-fg);
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* --- دکمه‌ها ---------------------------------------------------------------- */
+body.hamsoo-admin .button,
+body.hamsoo-admin input[type="submit"],
+body.hamsoo-admin input[type="button"],
+body.hamsoo-admin button[type="submit"],
+body.hamsoo-admin .submit-row input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border: 0;
+    border-radius: 10px;
+    color: #fffaf0;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.55rem 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(180, 83, 9, 0.25);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+}
+
+body.hamsoo-admin .button:hover,
+body.hamsoo-admin input[type="submit"]:hover,
+body.hamsoo-admin input[type="button"]:hover,
+body.hamsoo-admin button[type="submit"]:hover,
+body.hamsoo-admin .submit-row input:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(180, 83, 9, 0.3);
+}
+
+body.hamsoo-admin .button.default,
+body.hamsoo-admin input.default[type="submit"],
+body.hamsoo-admin .submit-row input.default {
+    background: linear-gradient(135deg, #d97706, #92400e);
+}
+
+body.hamsoo-admin .button.default:hover,
+body.hamsoo-admin .submit-row input.default:hover {
+    background: linear-gradient(135deg, #b45309, #78350f);
+}
+
+body.hamsoo-admin .deletelink,
+body.hamsoo-admin input.deletelink,
+body.hamsoo-admin input[type="submit"].deletelink {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 3px 8px rgba(220, 38, 38, 0.25);
+}
+
+body.hamsoo-admin .deletelink:hover,
+body.hamsoo-admin input.deletelink:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+body.hamsoo-admin .submit-row {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: var(--hamsoo-radius);
+    box-shadow: var(--hamsoo-shadow);
+    padding: 0.9rem 1.1rem;
+}
+
+body.hamsoo-admin a.cancel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--darkened-bg);
+    color: var(--body-medium-color);
+    border: 1px solid var(--hairline-color);
+    border-radius: 10px;
+    padding: 0.55rem 1.2rem;
+    font-weight: 600;
+    box-shadow: none;
+}
+
+body.hamsoo-admin a.cancel-link:hover {
+    background: var(--selected-bg);
+    color: var(--body-loud-color);
+}
+
+/* --- پیام‌ها ---------------------------------------------------------------- */
+body.hamsoo-admin .messagelist {
+    margin: 0 0 1.2rem;
+    padding: 0;
+}
+
+body.hamsoo-admin .messagelist li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--hairline-color);
+    border-radius: 12px;
+    box-shadow: var(--hamsoo-shadow);
+    margin: 0 0 0.6rem;
+    padding: 0.7rem 1rem;
+    font-weight: 600;
+}
+
+body.hamsoo-admin .messagelist li::before {
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+body.hamsoo-admin .messagelist li.success {
+    background: var(--message-success-bg);
+    border-color: rgba(22, 163, 74, 0.3);
+    color: #14532d;
+}
+
+html[data-theme="dark"] body.hamsoo-admin .messagelist li.success { color: #bbf7d0; }
+
+body.hamsoo-admin .messagelist li.success::before {
+    content: "\f058";
+    color: #16a34a;
+}
+
+body.hamsoo-admin .messagelist li.error {
+    background: var(--message-error-bg);
+    border-color: rgba(220, 38, 38, 0.3);
+    color: #7f1d1d;
+}
+
+html[data-theme="dark"] body.hamsoo-admin .messagelist li.error { color: #fecaca; }
+
+body.hamsoo-admin .messagelist li.error::before {
+    content: "\f06a";
+    color: #dc2626;
+}
+
+body.hamsoo-admin .messagelist li.warning {
+    background: var(--message-warning-bg);
+    border-color: rgba(217, 119, 6, 0.35);
+    color: #78350f;
+}
+
+html[data-theme="dark"] body.hamsoo-admin .messagelist li.warning { color: #fde68a; }
+
+body.hamsoo-admin .messagelist li.warning::before {
+    content: "\f071";
+    color: #d97706;
+}
+
+body.hamsoo-admin .messagelist li.info {
+    background: var(--message-info-bg);
+    border-color: rgba(37, 99, 235, 0.25);
+    color: #1e3a8a;
+}
+
+html[data-theme="dark"] body.hamsoo-admin .messagelist li.info { color: #bfdbfe; }
+
+body.hamsoo-admin .messagelist li.info::before {
+    content: "\f05a";
+    color: #2563eb;
+}
+
+/* --- صفحه داشبورد ---------------------------------------------------------- */
+.dash-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: linear-gradient(135deg, #92400e 0%, #b45309 60%, #d97706 100%);
+    border-radius: 18px;
+    padding: 1.4rem 1.7rem;
+    margin-bottom: 1.2rem;
+    box-shadow: var(--hamsoo-shadow-lg);
+    color: #fff7ed;
+}
+
+.dash-hero h1 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.dash-hero .dash-date {
+    margin: 0.35rem 0 0;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.dash-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff !important;
+    border-radius: 12px;
+    padding: 0.55rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.dash-hero-cta:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.dash-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.dash-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--card-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: var(--hamsoo-radius);
+    box-shadow: var(--hamsoo-shadow);
+    padding: 0.85rem 1rem;
+}
+
+.dash-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    box-shadow: 0 3px 8px rgba(180, 83, 9, 0.25);
+}
+
+.dash-stat-value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--body-loud-color);
+}
+
+.dash-stat-label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--body-quiet-color);
+    font-weight: 600;
+}
+
+/* کارت بخش‌های محتوا */
+.dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.1rem;
+}
+
+.app-card {
+    background: var(--card-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 18px;
+    box-shadow: var(--hamsoo-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--hamsoo-shadow-lg);
+}
+
+.app-card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+    background: var(--darkened-bg);
+    border-bottom: 1px solid var(--hairline-color);
+    color: var(--body-loud-color) !important;
+}
+
+.app-card-head h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    flex-grow: 1;
+    color: inherit;
+}
+
+.app-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    color: #451a03;
+    font-size: 0.95rem;
+    box-shadow: 0 3px 8px rgba(180, 83, 9, 0.28);
+}
+
+.app-card-count {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--body-quiet-color);
+    background: var(--body-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+}
+
+.dash-model-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.4rem 0;
+}
+
+.model-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.55rem 1.2rem;
+    border-bottom: 1px dashed var(--hairline-color);
+}
+
+.model-row:last-child {
+    border-bottom: 0;
+}
+
+.model-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    color: var(--body-fg);
+    min-width: 0;
+}
+
+.model-name > i {
+    width: 20px;
+    text-align: center;
+    color: var(--primary);
+    font-size: 0.85rem;
+}
+
+.model-name a {
+    color: var(--body-fg);
+}
+
+.model-name a:hover {
+    color: var(--link-hover-color);
+}
+
+.model-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--darkened-bg);
+    border: 1px solid var(--hairline-color);
+    color: var(--body-medium-color) !important;
+    font-size: 0.72rem;
+    transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.icon-btn:hover {
+    transform: translateY(-1px);
+}
+
+.icon-btn.add {
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    border-color: transparent;
+    color: #451a03 !important;
+}
+
+.icon-btn.view {
+    background: linear-gradient(135deg, #34d399, #059669);
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.dash-empty {
+    color: var(--body-quiet-color);
+    padding: 1rem;
+}
+
+/* بخش «اقدامات اخیر» */
+body.hamsoo-admin #recent-actions-module .actionlist {
+    list-style: none;
+    margin: 0.6rem 0;
+    padding: 0 1rem;
+}
+
+body.hamsoo-admin #recent-actions-module .actionlist li {
+    position: relative;
+    background: none;
+    border: 0;
+    border-bottom: 1px dashed var(--hairline-color);
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0.7rem 1.4rem 0.7rem 0;
+    font-size: 0.8rem;
+}
+
+body.hamsoo-admin #recent-actions-module .actionlist li:last-child {
+    border-bottom: 0;
+}
+
+body.hamsoo-admin #recent-actions-module .actionlist li::before {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.85rem;
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+    font-size: 0.85rem;
+    color: var(--body-quiet-color);
+}
+
+body.hamsoo-admin #recent-actions-module .actionlist li.addlink::before {
+    content: "\f055";
+    color: #16a34a;
+}
+
+body.hamsoo-admin #recent-actions-module .actionlist li.changelink::before {
+    content: "\f303";
+    color: #d97706;
+}
+
+body.hamsoo-admin #recent-actions-module .actionlist li.deletelink::before {
+    content: "\f2ed";
+    color: #dc2626;
+}
+
+body.hamsoo-admin #recent-actions-module h2 i,
+body.hamsoo-admin #content-related .module h2 i {
+    color: var(--primary);
+    margin-inline-end: 0.4rem;
+}
+
+/* --- صفحه ورود ------------------------------------------------------------- */
+body.hamsoo-admin.login {
+    background:
+        radial-gradient(900px 480px at 85% -10%, rgba(251, 191, 36, 0.35), transparent 60%),
+        radial-gradient(700px 420px at 10% 110%, rgba(120, 53, 15, 0.5), transparent 60%),
+        linear-gradient(160deg, #78350f 0%, #92400e 45%, #b45309 100%);
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+body.hamsoo-admin.login #header,
+body.hamsoo-admin.login #footer,
+body.hamsoo-admin.login .breadcrumbs {
+    display: none;
+}
+
+body.hamsoo-admin.login #container,
+body.hamsoo-admin.login .main,
+body.hamsoo-admin.login .content {
+    display: block;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+}
+
+body.hamsoo-admin.login #content {
+    padding: 0;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+body.hamsoo-admin.login #content-main {
+    width: 100%;
+    max-width: 430px;
+    padding: 2rem 1rem;
+}
+
+.login-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(41, 17, 3, 0.45);
+    padding: 2.2rem 2rem 1.8rem;
+}
+
+.login-card-head {
+    text-align: center;
+    margin-bottom: 1.6rem;
+}
+
+.login-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    color: #451a03;
+    font-size: 1.9rem;
+    font-weight: 900;
+    box-shadow: 0 8px 20px rgba(180, 83, 9, 0.35);
+}
+
+.login-title {
+    margin: 0.9rem 0 0.2rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--body-loud-color);
+}
+
+.login-sub {
+    margin: 0.2rem 0 0;
+    font-size: 0.78rem;
+    color: var(--body-quiet-color);
+}
+
+.login-form .login-field {
+    margin-bottom: 1.05rem;
+}
+
+.login-form label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--body-medium-color);
+}
+
+.login-form label i {
+    color: var(--primary);
+    font-size: 0.8rem;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input.vTextField {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.login-form .login-submit {
+    margin-top: 1.4rem;
+}
+
+.login-form .login-submit input,
+.login-form .login-submit button {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 12px;
+}
+
+.login-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-top: 1.3rem;
+    padding-top: 1.1rem;
+    border-top: 1px dashed var(--hairline-color);
+}
+
+.login-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--body-quiet-color) !important;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.login-back:hover {
+    color: var(--link-hover-color) !important;
+}
+
+.password-reset-link {
+    text-align: center;
+    margin: 0.8rem 0 0;
+    font-size: 0.78rem;
+}
+
+/* --- پاورقی ----------------------------------------------------------------- */
+body.hamsoo-admin #footer {
+    background: transparent;
+    border-top: 1px solid var(--hairline-color);
+    color: var(--body-quiet-color);
+    font-size: 0.75rem;
+    padding: 1rem 1.4rem;
+    text-align: center;
+}
+
+/* --- پنجره‌های Popup --------------------------------------------------------- */
+body.hamsoo-admin.popup #header {
+    padding: 0.5rem 1rem;
+}
+
+body.hamsoo-admin.popup .app-my_model h1,
+body.hamsoo-admin.popup .delete-confirmation h1 {
+    font-size: 1.2rem;
+}
+
+/* --- سازگاری موبایل --------------------------------------------------------- */
+@media (max-width: 766px) {
+    body.hamsoo-admin #header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+    }
+
+    body.hamsoo-admin #user-tools {
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        width: 100%;
+    }
+
+    .dash-hero {
+        padding: 1.1rem 1.2rem;
+    }
+
+    .dash-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,67 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('مدیریت همسو') }}{% endblock %}
+
+{% block bodyclass %}hamsoo-admin{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <!-- قلم فارسی وزیرمتن -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  <!-- آیکون‌ها -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- پوسته‌ی اختصاصی پنل مدیریت -->
+  <link rel="stylesheet" href="{% static 'core/css/admin.css' %}">
+{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <script src="{% static 'core/js/admin.js' %}" defer></script>
+{% endblock %}
+
+{% block branding %}
+  <div id="site-name">
+    <a class="hamsoo-brand" href="{% url 'admin:index' %}">
+      <span class="hamsoo-brand-badge">هـ</span>
+      <span class="hamsoo-brand-text">{{ site_header|default:_('پنل مدیریت') }}</span>
+    </a>
+  </div>
+  {% if user.is_anonymous %}
+    {% include "admin/color_theme_toggle.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block welcome-msg %}
+  <i class="fas fa-circle-user" aria-hidden="true"></i>
+  {% translate 'Welcome,' %}
+  <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+{% endblock %}
+
+{% block userlinks %}
+  {% if site_url %}
+    <a href="{{ site_url }}"><i class="fas fa-globe" aria-hidden="true"></i> {% translate 'View site' %}</a>
+  {% endif %}
+  {% if user.is_active and user.is_staff %}
+    {% url 'django-admindocs-docroot' as docsroot %}
+    {% if docsroot %}
+      <a href="{{ docsroot }}"><i class="fas fa-book" aria-hidden="true"></i> {% translate 'Documentation' %}</a>
+    {% endif %}
+  {% endif %}
+  {% if user.has_usable_password %}
+    <a href="{% url 'admin:password_change' %}"><i class="fas fa-key" aria-hidden="true"></i> {% translate 'Change password' %}</a>
+  {% endif %}
+  <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+    {% csrf_token %}
+    <button type="submit"><i class="fas fa-arrow-right-from-bracket" aria-hidden="true"></i> {% translate 'Log out' %}</button>
+  </form>
+  {% include "admin/color_theme_toggle.html" %}
+{% endblock %}
+
+{% block footer %}
+  <div class="hamsoo-footer">
+    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+    پنل مدیریت رسانه همسو — دسترسی فقط برای کاربر سوپر یوزر
+  </div>
+{% endblock %}
