@@ -17,6 +17,9 @@
 
   <!-- استایل اختصاصی سایت -->
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+
+  <!-- لوگوی سایت (فاوآیکون) -->
+  <link rel="icon" type="image/png" href="{% static 'core/img/logo.png' %}">
 </head>
 <body class="text-neutral-800 flex flex-col justify-between">
 
@@ -24,12 +27,9 @@
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-amber-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="{% url 'core:index' %}" class="flex items-center gap-3" data-nav="home">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-white shadow-md font-bold text-xl">
-          هـ
-        </div>
+        <img src="{% static 'core/img/logo.png' %}" alt="لوگوی همسو" class="w-10 h-10 rounded-full object-cover shadow-md">
         <div>
           <span class="font-extrabold text-amber-700 text-lg">{{ site.site_name }}</span>
-          <span class="hidden sm:inline-block text-xs text-amber-600 mr-2 bg-amber-100 px-2 py-0.5 rounded-full">{{ site.hashtag }}</span>
         </div>
       </a>
 

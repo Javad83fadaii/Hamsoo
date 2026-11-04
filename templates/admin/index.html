@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n static admin_filters log %}
+{% load i18n static admin_filters log jalali %}
 
 {% block coltype %}colMS{% endblock %}
 
@@ -18,7 +18,7 @@
       <h1>{% translate 'Welcome,' %} {% firstof user.get_short_name user.get_username %}!</h1>
       <p class="dash-date">
         <i class="fas fa-calendar-day" aria-hidden="true"></i>
-        {% now "j F Y" %} — مدیریت محتوای رسانه همسو
+        {% jalali_now %} — مدیریت محتوای رسانه همسو
       </p>
     </div>
     <a class="dash-hero-cta" href="{% url 'core:index' %}">

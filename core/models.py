@@ -28,6 +28,16 @@ def gregorian_to_jalali_label(value):
     return to_persian_digits(jalali.strftime('%d %B %Y'))
 
 
+def gregorian_to_jalali_datetime_label(value):
+    """تاریخ‌وزمان میلادی را به شکل «۱۳ آبان ۱۴۰۵ — ۰۹:۳۰» برمی‌گرداند."""
+    if not value:
+        return ''
+    if timezone.is_aware(value):
+        value = timezone.localtime(value)
+    jalali = jdatetime.datetime.fromgregorian(datetime=value)
+    return to_persian_digits(jalali.strftime('%d %B %Y — %H:%M'))
+
+
 class TimeStampedModel(models.Model):
     """پایه‌ی مشترک برای نگه‌داشتن تاریخ ثبت و آخرین ویرایش."""
 

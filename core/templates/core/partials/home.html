@@ -1,38 +1,8 @@
+{% load static %}
 <!-- ==================== صفحه اول (صفحه اصلی) ==================== -->
 <section id="home" class="page-section active">
 
-  <!-- بخش بالایی وسط: لوگو و آیکون مرکزی -->
-  <div class="text-center my-6 flex flex-col items-center">
-    <div class="relative mb-3">
-      <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 flex items-center justify-center p-1 shadow-lg ring-8 ring-amber-100">
-        <div class="w-full h-full rounded-full bg-amber-50 flex items-center justify-center flex-col shadow-inner">
-          <i class="fas fa-flag text-amber-600 text-3xl mb-1 animate-bounce"></i>
-          <span class="text-[10px] font-bold text-amber-800">ایران سرافراز</span>
-        </div>
-      </div>
-    </div>
-
-    <p class="text-sm sm:text-base font-semibold text-neutral-600 tracking-wide mb-1">
-      {{ site.tagline }}
-    </p>
-
-    <h1 class="text-6xl sm:text-7xl font-black hamsoo-logo-text mb-2 tracking-tight">
-      همسو
-    </h1>
-
-    <div class="flex items-center gap-3 my-2 text-amber-600 bg-white/70 px-4 py-1.5 rounded-full border border-amber-200 shadow-sm text-sm">
-      <i class="fas fa-video" title="ویدئو"></i>
-      <i class="fas fa-microphone" title="پادکست"></i>
-      <i class="fas fa-comment-dots" title="گفتگو"></i>
-      <i class="fas fa-book-open" title="نشریه"></i>
-    </div>
-
-    <div class="inline-block bg-amber-400/30 text-amber-800 font-extrabold px-4 py-1 rounded-full text-sm border-b-2 border-amber-500 mt-1">
-      {{ site.hashtag }}
-    </div>
-  </div>
-
-  <!-- سطر بعدی: تقسیم به ۳ قسمت -->
+  <!-- سطر اصلی: تقسیم به ۳ قسمت -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-10">
 
     <!-- سمت راست: ۳ گزینه -->
@@ -94,35 +64,28 @@
 
     </div>
 
-    <!-- ستون وسط: معرفی گروه -->
-    <div class="lg:col-span-4 flex flex-col">
-      <div class="glass-card p-6 rounded-3xl h-full flex flex-col justify-between border-2 border-amber-300 shadow-xl bg-gradient-to-b from-white via-amber-50/50 to-white">
-        <div>
-          <div class="w-12 h-1 bg-amber-500 rounded-full mb-4"></div>
-          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">درباره تشکل و گروه</span>
-          <h2 class="text-2xl font-black text-amber-900 mt-1 mb-3">{{ site.about_title }}</h2>
-          <p class="text-sm text-neutral-700 leading-relaxed text-justify">
-            {{ site.about_text|linebreaksbr }}
-          </p>
-
-          <div class="grid grid-cols-2 gap-3 my-6">
-            <div class="bg-amber-100/70 p-3 rounded-xl text-center">
-              <span class="block text-xl font-bold text-amber-800">{{ site.stat_one_value }}</span>
-              <span class="text-xs text-neutral-600">{{ site.stat_one_label }}</span>
-            </div>
-            <div class="bg-amber-100/70 p-3 rounded-xl text-center">
-              <span class="block text-xl font-bold text-amber-800">{{ site.stat_two_value }}</span>
-              <span class="text-xs text-neutral-600">{{ site.stat_two_label }}</span>
-            </div>
+    <!-- ستون وسط: لوگو و عنوان‌های مرکزی -->
+    <div class="lg:col-span-4 flex items-center justify-center">
+      <div class="text-center flex flex-col items-center">
+        <div class="relative mb-3">
+          <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 flex items-center justify-center p-1 shadow-lg ring-8 ring-amber-100">
+            <img src="{% static 'core/img/logo.png' %}" alt="لوگوی همسو" class="w-full h-full rounded-full object-cover shadow-inner">
           </div>
         </div>
 
-        <div class="pt-4 border-t border-amber-200 flex items-center justify-between">
-          <span class="text-xs text-neutral-500">متعهد به مسئولیت اجتماعی</span>
-          <button type="button" data-nav="statement" class="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1">
-            <span>مطالعه مرام‌نامه</span>
-            <i class="fas fa-arrow-left"></i>
-          </button>
+        <p class="text-sm sm:text-base font-semibold text-neutral-600 tracking-wide mb-1">
+          {{ site.tagline }}
+        </p>
+
+        <div class="flex items-center gap-3 my-2 text-amber-600 bg-white/70 px-4 py-1.5 rounded-full border border-amber-200 shadow-sm text-sm">
+          <i class="fas fa-video" title="ویدئو"></i>
+          <i class="fas fa-microphone" title="پادکست"></i>
+          <i class="fas fa-comment-dots" title="گفتگو"></i>
+          <i class="fas fa-book-open" title="نشریه"></i>
+        </div>
+
+        <div class="inline-block bg-amber-400/30 text-amber-800 font-extrabold px-4 py-1 rounded-full text-sm border-b-2 border-amber-500 mt-1">
+          {{ site.hashtag }}
         </div>
       </div>
     </div>
